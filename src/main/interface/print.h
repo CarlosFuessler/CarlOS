@@ -31,3 +31,4 @@ void print_set_cursor(size_t col, size_t row);
 size_t print_get_col(void);
 size_t print_get_row(void);
 void print_newline(void);
+void delete_char(void);

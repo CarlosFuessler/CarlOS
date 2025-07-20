@@ -5,6 +5,9 @@ Ein einfaches Betriebssystem geschrieben in Assembly und C.
 ## Build-Anweisungen
 
 ```bash
+#Den Docker-Container bauen
+docker build build_env -t carl_os
+
 # Docker-Container starten
 docker run --rm -it -v $(pwd):/root/env carl_os
 
@@ -27,3 +30,5 @@ qemu-system-x86_64 -cdrom  -fda dist/x86_64/kernel.iso
 - 32-bit zu 64-bit Long Mode Übergang
 - VGA-Text-Modus-Ausgabe
 - Grundlegende Print-Funktionen
+- String Umwandlung
+- Shell prompting

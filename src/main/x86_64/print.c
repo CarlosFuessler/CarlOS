@@ -102,3 +102,36 @@ void print_newline(void)
         row = 0;
     }
 }
+
+void delete_char(void)
+{
+    // Prüfe ob wir am Zeilenanfang sind
+    if (col > 0)
+    {
+        col--; // Gehe ein Zeichen zurück
+
+        // Lösche das Zeichen visuell
+        buffer[row * NUM_COLS + col] = (struct Char){
+            .character = ' ',
+            .color = color,
+        };
+    }
+    else if (row > 0)
+    {
+        // Gehe zur vorherigen Zeile, ans Ende
+        row--;
+        col = NUM_COLS - 1;
+
+        // Finde das letzte Zeichen in der vorherigen Zeile
+        while (col > 0 && buffer[row * NUM_COLS + col].character == ' ')
+        {
+            col--;
+        }
+
+        // Lösche das gefundene Zeichen
+        buffer[row * NUM_COLS + col] = (struct Char){
+            .character = ' ',
+            .color = color,
+        };
+    }
+}
