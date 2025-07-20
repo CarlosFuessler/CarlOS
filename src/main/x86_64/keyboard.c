@@ -101,7 +101,7 @@ static char buffer_get_char(void)
 // Initialisiert das Keyboard-System
 void keyboard_init(void)
 {
-    print_str("Keyboard: Initialisierung gestartet...\n");
+    // print_str("Keyboard...\n");
 
     // Reset Buffer-Variablen
     buffer_read_pos = 0;
@@ -115,7 +115,7 @@ void keyboard_init(void)
     }
 
     keyboard_status = KEYBOARD_READY;
-    print_str("Keyboard: Bereit!\n");
+    // print_str("Keyboard: ready!\n");
 }
 
 // Liest einen Scancode direkt vom Keyboard

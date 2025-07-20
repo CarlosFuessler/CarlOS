@@ -14,8 +14,8 @@ void shell_init(void)
 {
     print_clear();
     print_set_color(forground_color, background_color);
-    print_str("\n===CarlOS Shell v1.0 initialisiert===\n\n");
-    print_str("Tippen Sie 'help' fuer verfuegbare Befehle\n\n");
+    print_str("\n===CarlOS Shell v1.0===\n\n");
+    print_str("Wirte <help> for a list of all commands!\n\n");
 }
 
 // ========== COMMAND PROCESSING ==========
@@ -51,9 +51,9 @@ void shell_process_command(const char *command)
     }
     else
     {
-        print_str("Unbekannter Befehl: ");
+        print_str("unknown command: ");
         print_str(command);
-        print_str("\nTippen Sie 'help' fuer verfuegbare Befehle.\n");
+        print_str("\nwrite <help> for unknown commands \n");
     }
 }
 
@@ -97,7 +97,7 @@ void shell_run(void)
             }
             else if (c == KEY_ESCAPE)
             {
-                print_str("\nShell beendet. Auf Wiedersehen!\n");
+                print_str("\n====Auf Wiedersehen!=?====\n");
                 break;
             }
             else if (c >= 32 && c <= 126)
@@ -119,34 +119,33 @@ void shell_run(void)
 void cmd_about(void)
 {
     print_clear();
-    print_str("=== CarlOS Information ===\n\n");
+    print_str("=== CarlOS Informations ===\n\n");
     print_str("Name:        CarlOS\n");
     print_str("Version:     1.0\n");
-    print_str("Entwickler:  CarlosFuessler\n");
-    print_str("Architektur: x86_64\n");
+    print_str("By:  CarlosFuessler\n");
+    print_str("Architectur: x86_64\n");
     print_str("Features:\n");
-    print_str("- 32-bit zu 64-bit Long Mode Übergang\n");
-    print_str("- VGA-Text-Modus-Ausgabe\n");
-    print_str("- Grundlegende Print-Funktionen\n");
-    print_str("- String Umwandlung\n");
-    print_str("- Shell prompting\n");
 }
 
 void cmd_help(void)
 {
     print_clear();
-    print_str("=== Verfuegbare Befehle ===\n\n");
-    print_str("about  - Zeigt Informationen über CarlOS\n");
-    print_str("help   - Zeigt diese Hilfe\n");
-    print_str("clear  - Loescht den Bildschirm\n");
-    print_str("\nVerwenden Sie ESC um die Shell zu beenden.\n");
+    print_str("=== Commands ===\n\n");
+    print_str("about  - Shows Infos about CarlOS\n");
+    print_str("help   - Shows this help\n");
+    print_str("clear  - Clears the screen\n");
+    print_str("color  - Lets you change the system font\n");
+    print_str("\nUse ESC to leave the shell\n");
 }
 
 void switch_color()
 {
-    print_str("=== Wähle eine Farbe ===\n\n");
-    print_str("Blau (1):\n");
-    print_str("Grün (2):\n");
+    print_str("=== Choose a color ===\n\n");
+    print_str("Blue (1):\n");
+    print_str("Green (2):\n");
+    print_str("Pink (3):\n");
+    print_str("White (4):\n");
+    print_str("Red (5):\n");
 
     while (1)
     {
@@ -154,10 +153,10 @@ void switch_color()
 
         if (input == '1')
         {
-            forground_color = PRINT_COLOR_BLUE;
+            forground_color = PRINT_COLOR_LIGHT_BLUE;
             print_clear();
             print_set_color(forground_color, background_color);
-            print_str("Ihre Systemfrabe wurde erfolgreich geändert!\n");
+            print_str("Your Systemcolor was succesfully changed\n");
             break;
         }
         else if (input == '2')
@@ -166,13 +165,43 @@ void switch_color()
             forground_color = PRINT_COLOR_GREEN;
             print_clear();
             print_set_color(forground_color, background_color);
-            print_str("Ihre Systemfrabe wurde erfolgreich geändert!\n");
+            print_str("Your Systemcolor was succesfully changed\n");
+            break;
+        }
+        else if (input == '3')
+        {
+
+            forground_color = PRINT_COLOR_PINK;
+            print_clear();
+            print_set_color(forground_color, background_color);
+            print_str("Your Systemcolor was succesfully changed\n");
+            break;
+        }
+        else if (input == '4')
+        {
+
+            forground_color = PRINT_COLOR_WHITE;
+            print_clear();
+            print_set_color(forground_color, background_color);
+            print_str("Your Systemcolor was succesfully changed\n");
+            break;
+        }
+        else if (input == '5')
+        {
+
+            forground_color = PRINT_COLOR_RED;
+            print_clear();
+            print_set_color(forground_color, background_color);
+            print_str("Your Systemcolor was succesfully changed\n");
             break;
         }
         else
             print_clear();
-        print_str("=== Wähle eine Farbe ===\n\n");
-        print_str("Blau (1):\n");
-        print_str("Grün (2):\n");
+        print_str("=== Choose a color ===\n\n");
+        print_str("Blue (1):\n");
+        print_str("Green (2):\n");
+        print_str("Pink (3):\n");
+        print_str("White (4):\n");
+        print_str("Red (5):\n");
     }
 }

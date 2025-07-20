@@ -1,26 +1,26 @@
 # CarlOS
 
-Ein einfaches Betriebssystem geschrieben in Assembly und C.
+A easy OS written in ASM and C
 
 ## Build-Anweisungen
 
 ```bash
 
-#Den Docker-Container bauen
+#Build the Docker-Container
 docker build build_env -t carl_os
 
-#Zum Starten
+#To run the VM
 ./run.sh
 
-#Alternativ manuel
+#If this dosent work ->
 
-# Docker-Container starten
+#Start Docker-Container
 docker run --rm -it -v $(pwd):/root/env carl_os
 
-# Projekt kompilieren
+# Build the Project
 make build-x86_64
 
-# Um das Projekt zu starten 
+# And start it :-)
 qemu-system-x86_64 -cdrom  -fda dist/x86_64/kernel.iso
 ```
 
@@ -31,10 +31,11 @@ qemu-system-x86_64 -cdrom  -fda dist/x86_64/kernel.iso
 - `src/main/interface/` - Header-Dateien
 - `targets/x86_64/` - Linker-Scripts und ISO-Konfiguration
 
+#
 ## Features
 
-- 32-bit zu 64-bit Long Mode Übergang
-- VGA-Text-Modus-Ausgabe
-- Grundlegende Print-Funktionen
-- String Umwandlung
+- 32-bit to 64-bit Long Mode switch 
+- VGA-Visuals
+- Basic Printingfunctions
+- String Conversion
 - Shell prompting
