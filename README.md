@@ -5,8 +5,14 @@ Ein einfaches Betriebssystem geschrieben in Assembly und C.
 ## Build-Anweisungen
 
 ```bash
+
 #Den Docker-Container bauen
 docker build build_env -t carl_os
+
+#Zum Starten
+./run.sh
+
+#Alternativ manuel
 
 # Docker-Container starten
 docker run --rm -it -v $(pwd):/root/env carl_os
