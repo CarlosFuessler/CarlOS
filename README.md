@@ -2,7 +2,7 @@
 
 A easy OS written in ASM and C
 
-## Build-Anweisungen
+## Build-Instructions
 
 ```bash
 
