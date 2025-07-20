@@ -1,0 +1,22 @@
+# Build-Dateien
+build/
+dist/
+*.o
+*.bin
+*.iso
+
+# IDE-Dateien
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# macOS-Dateien
+.DS_Store
+
+# Docker-Dateien
+.dockerignore
+
+# Temporäre Dateien
+*.tmp
+*.temp
