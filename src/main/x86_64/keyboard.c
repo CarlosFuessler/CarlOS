@@ -18,27 +18,25 @@ static size_t buffer_read_pos = 0;  // Lese-Position im Buffer
 static size_t buffer_write_pos = 0; // Schreib-Position im Buffer
 static size_t buffer_count = 0;     // Anzahl Zeichen im Buffer
 
-// ========== SCANCODE-TABELLE ==========
-// Korrigierte Übersetzung von Scancodes zu ASCII-Zeichen
+// Deutsche Tastatur mit korrekter < Taste (links neben Y/Z)
 static const char scancode_to_ascii_table[128] = {
-    0, KEY_ESCAPE, '1', '2', '3', '4', '5', '6',          // 0x00-0x07 - ESC ist Scancode 0x01!
-    '7', '8', '9', '0', '-', '=', KEY_BACKSPACE, KEY_TAB, // 0x08-0x0F
-    'q', 'w', 'e', 'r', 't', 'y', 'u', 'i',               // 0x10-0x17
-    'o', 'p', '[', ']', KEY_ENTER, 0, 'a', 's',           // 0x18-0x1F - Enter ist 0x1C
-    'd', 'f', 'g', 'h', 'j', 'k', 'l', ';',               // 0x20-0x27
-    '\'', '`', 0, '\\', 'z', 'x', 'c', 'v',               // 0x28-0x2F
-    'b', 'n', 'm', KEY_LESS_THAN, '.', '/', 0, '*',       // 0x30-0x37
-    0, KEY_SPACE, 0, 0, 0, 0, 0, 0,                       // 0x38-0x3F
-    0, 0, 0, 0, 0, 0, 0, 0,                               // 0x40-0x47
-    0, 0, 0, 0, 0, 0, 0, 0,                               // 0x48-0x4F
-    0, 0, 0, 0, 0, 0, 0, 0,                               // 0x50-0x57
-    0, 0, 0, 0, 0, 0, 0, 0,                               // 0x58-0x5F
-    0, 0, 0, 0, 0, 0, 0, 0,                               // 0x60-0x67
-    0, 0, 0, 0, 0, 0, 0, 0,                               // 0x68-0x6F
-    0, 0, 0, 0, 0, 0, 0, 0,                               // 0x70-0x77
-    0, 0, 0, 0, 0, 0, 0, 0                                // 0x78-0x7F
+    0, KEY_ESCAPE, '1', '2', '3', '4', '5', '6',           // 0x00-0x07
+    '7', '8', '9', '0', 's', '\'', KEY_BACKSPACE, KEY_TAB, // 0x08-0x0F
+    'q', 'w', 'e', 'r', 't', 'z', 'u', 'i',                // 0x10-0x17
+    'o', 'p', 'u', '+', KEY_ENTER, 0, 'a', 's',            // 0x18-0x1F
+    'd', 'f', 'g', 'h', 'j', 'k', 'l', 'o',                // 0x20-0x27
+    'a', '<', 0, '#', 'y', 'x', 'c', 'v',                  // 0x28-0x2F
+    'b', 'n', 'm', ',', '.', '-', 0, '*',                  // 0x30-0x37
+    0, KEY_SPACE, 0, 0, 0, 0, 0, 0,                        // 0x38-0x3F
+    0, 0, 0, 0, 0, 0, 0, 0,                                // 0x40-0x47
+    0, 0, 0, 0, 0, 0, 0, 0,                                // 0x48-0x4F
+    0, 0, 0, 0, 0, 0, 0, 0,                                // 0x50-0x57
+    0, 0, 0, 0, 0, 0, 0, 0,                                // 0x58-0x5F
+    0, 0, 0, 0, 0, 0, 0, 0,                                // 0x60-0x67
+    0, 0, 0, 0, 0, 0, 0, 0,                                // 0x68-0x6F
+    0, 0, 0, 0, 0, 0, 0, 0,                                // 0x70-0x77
+    0, 0, 0, 0, 0, 0, 0, 0                                 // 0x78-0x7F
 };
-
 // ========== LOW-LEVEL I/O FUNKTIONEN ==========
 // Liest ein Byte von einem Port
 static inline uint8_t inb(uint16_t port)

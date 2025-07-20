@@ -99,6 +99,7 @@ void print_newline(void)
     row++;
     if (row >= NUM_ROWS)
     {
+        print_clear();
         row = 0;
     }
 }

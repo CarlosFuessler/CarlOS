@@ -13,29 +13,27 @@ void kernel_main(void)
     // Keyboard initialisieren
     keyboard_init();
 
-    // Warte auf < Taste
-    char input = 0;
-    while (input != '<')
-    { // oder != KEY_LESS_THAN
-        if (keyboard_has_input())
-        {
-            input = keyboard_get_char();
+    // Warte auf < Taste (blockierend)
+    char input;
+    do
+    {
+        input = keyboard_get_char();
+        print_char(input);
+        print_newline();
 
-            if (input == '<')
-            { // oder == KEY_LESS_THAN
-                print_str("Shell wird gestartet...\n\n");
-                break;
-            }
-            else
-            {
-                print_str("Falsche Taste! Druecken Sie <\n");
-            }
+        if (input != '<')
+        {
+            print_str("Falsche Taste! Druecken Sie <\n");
         }
-    }
+    } while (input != '<');
+
+    print_str("Shell wird gestartet...\n\n");
 
     // Shell initialisieren und starten
     shell_init();
     shell_run();
+
+    print_clear();
 
     // Falls Shell beendet wird
     print_str("System wird heruntergefahren...\n");
