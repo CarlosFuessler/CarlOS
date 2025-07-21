@@ -3,13 +3,13 @@
 #include "print.h"
 #include "string.h"
 
-// ========== GLOBALE VARIABLEN ==========
+// GLOBALE VARIABLEN
 static char input_buffer[SHELL_BUFFER_SIZE];
 static size_t buffer_pos = 0;
 uint8_t forground_color = PRINT_COLOR_PINK;
 uint8_t background_color = PRINT_COLOR_BLACK;
 
-// ========== SHELL INITIALISIERUNG ==========
+// SHELL INITIALISIERUNG
 void shell_init(void)
 {
     print_clear();
@@ -18,7 +18,7 @@ void shell_init(void)
     print_str("Wirte <help> for a list of all commands!\n\n");
 }
 
-// ========== COMMAND PROCESSING ==========
+// COMMAND PROCESSING
 void shell_process_command(const char *command)
 {
     // Entferne führende/nachfolgende Leerzeichen
@@ -60,7 +60,7 @@ void shell_process_command(const char *command)
     }
 }
 
-// ========== SHELL HAUPTSCHLEIFE ==========
+// SHELL HAUPTSCHLEIFE
 void shell_run(void)
 {
     buffer_pos = 0;
@@ -117,7 +117,7 @@ void shell_run(void)
     }
 }
 
-// ========== COMMAND IMPLEMENTATIONS ==========
+// COMMAND IMPLEMENTATIONS
 
 void cmd_about(void)
 {
@@ -137,6 +137,7 @@ void cmd_help(void)
     print_str("help   - Shows this help\n");
     print_str("clear  - Clears the screen\n");
     print_str("color  - Lets you change the system font\n");
+    print_str("echo   -Lets you write some text in the shell\n");
     print_str("\nUse ESC to leave the shell\n");
 }
 
@@ -210,22 +211,27 @@ void switch_color()
 
 void echo()
 {
-
-    char *input = input_buffer[buffer_pos];
-
-    print_str("Write any Text you want! To close echo write $");
+    print_clear();
+    unsigned char input;
+    print_str("===Write any Text you want! To close echo write=== $\n\n");
 
     do
     {
+        input = keyboard_get_char();
+
         if (input == KEY_ENTER)
         {
             print_newline();
         }
-        if (input == KEY_BACKSPACE)
+        if (input == KEY_BACKSPACE && input_buffer[buffer_pos - 4] != '=')
         {
             delete_char();
         }
-        print_char(input);
+
+        if (input != KEY_BACKSPACE)
+        {
+            print_char(input);
+        }
 
     } while (input != '$');
 }

@@ -30,7 +30,7 @@ int strcmp(const char *str1, const char *str2)
 }
 
 // String kopieren
-char *strcpy(char *dest, const char *src)
+char *_strcpy(char *dest, const char *src)
 {
     size_t i = 0;
     while (src[i] != '\0')
@@ -43,7 +43,7 @@ char *strcpy(char *dest, const char *src)
 }
 
 // Strings verketten
-char *strcat(char *dest, const char *src)
+char *_strcat(char *dest, const char *src)
 {
     size_t dest_len = strlen(dest);
     size_t i = 0;
@@ -124,7 +124,7 @@ void hex_to_string(unsigned int value, char *buffer)
 }
 
 // Speicher setzen
-void *memset(void *ptr, int value, size_t size)
+void *_memset(void *ptr, int value, size_t size)
 {
     unsigned char *p = (unsigned char *)ptr;
     for (size_t i = 0; i < size; i++)
@@ -135,7 +135,7 @@ void *memset(void *ptr, int value, size_t size)
 }
 
 // Speicher kopieren - HINZUGEFÜGT
-void *memcpy(void *dest, const void *src, size_t size)
+void *_memcpy(void *dest, const void *src, size_t size)
 {
     unsigned char *d = (unsigned char *)dest;
     const unsigned char *s = (const unsigned char *)src;
