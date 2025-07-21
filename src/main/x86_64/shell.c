@@ -46,8 +46,11 @@ void shell_process_command(const char *command)
     }
     else if (strcmp(command, "color") == 0)
     {
-
         switch_color();
+    }
+    else if (strcmp(command, "echo") == 0)
+    {
+        echo();
     }
     else
     {
@@ -203,4 +206,26 @@ void switch_color()
         print_str("White (4):\n");
         print_str("Red (5):\n");
     }
+}
+
+void echo()
+{
+
+    char *input = input_buffer[buffer_pos];
+
+    print_str("Write any Text you want! To close echo write $");
+
+    do
+    {
+        if (input == KEY_ENTER)
+        {
+            print_newline();
+        }
+        if (input == KEY_BACKSPACE)
+        {
+            delete_char();
+        }
+        print_char(input);
+
+    } while (input != '$');
 }
