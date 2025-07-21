@@ -11,6 +11,7 @@ char *_strcat(char *dest, const char *src);
 // Zahlen-Konvertierung (für Debug/Print)
 void int_to_string(int value, char *buffer);
 void hex_to_string(unsigned int value, char *buffer);
+void _stoi(const char *str);
 
 // Speicher-Funktionen
 void *_memset(void *ptr, int value, size_t size);

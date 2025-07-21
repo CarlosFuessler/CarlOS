@@ -1,5 +1,9 @@
 #include "string.h"
 
+typedef int bool;
+#define true 1
+#define false 0
+
 // String-Länge berechnen
 size_t strlen(const char *str)
 {
@@ -123,6 +127,34 @@ void hex_to_string(unsigned int value, char *buffer)
     buffer[index] = '\0';
 }
 
+void _stoi(const char *str)
+{
+    if (str == NULL)
+        return 0;
+
+    int res = 0;
+
+    bool negative = false;
+
+    while (*str == ' ')
+    {
+        str++;
+    }
+
+    if (*str == '-')
+    {
+        negative = true;
+        str++;
+
+        while (*str >= '0' && *str <= '9')
+        {
+            res = res * 10 + (*str - '0');
+            str++;
+        }
+    }
+
+    return negative ? -res : res;
+}
 // Speicher setzen
 void *_memset(void *ptr, int value, size_t size)
 {
