@@ -53,7 +53,9 @@ void shell_process_command(const char *command)
         echo();
     }
     else
+
     {
+        print_clear();
         print_str("unknown command: ");
         print_str(command);
         print_str("\nwrite <help> for unknown commands \n");
@@ -100,7 +102,6 @@ void shell_run(void)
             }
             else if (c == KEY_ESCAPE)
             {
-                print_str("\n====Auf Wiedersehen!=?====\n");
                 break;
             }
             else if (c >= 32 && c <= 126)
@@ -122,11 +123,13 @@ void shell_run(void)
 void cmd_about(void)
 {
     print_clear();
-    print_str("=== CarlOS Informations ===\n\n");
-    print_str("Name:        CarlOS\n");
-    print_str("Version:     1.0\n");
-    print_str("By:  CarlosFuessler\n");
-    print_str("Architectur: x86_64\n");
+    print_logo();
+    print_set_color(forground_color, background_color);
+    print_str("\n");
+    print_str("     Name:        CarlOS\n");
+    print_str("     Version:     1.0\n");
+    print_str("     By:  CarlosFuessler\n");
+    print_str("     Architectur: x86_64\n\n");
 }
 
 void cmd_help(void)
@@ -143,6 +146,7 @@ void cmd_help(void)
 
 void switch_color()
 {
+    print_clear();
     print_str("=== Choose a color ===\n\n");
     print_str("Blue (1):\n");
     print_str("Green (2):\n");
@@ -213,7 +217,7 @@ void echo()
 {
     print_clear();
     unsigned char input;
-    print_str("===Write any Text you want! To close echo write=== $\n\n");
+    print_str("===Write any Text you want! To close echo write $ === \n\n");
 
     do
     {

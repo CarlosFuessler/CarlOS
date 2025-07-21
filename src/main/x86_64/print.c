@@ -136,3 +136,49 @@ void delete_char(void)
         };
     }
 }
+
+void print_logo(void)
+{
+    print_set_color(PRINT_COLOR_PINK, PRINT_COLOR_BLACK);
+    print_str("           #########               \n");
+    print_str("       ##################          \n");
+    print_set_color(PRINT_COLOR_MAGENTA, PRINT_COLOR_BLACK);
+    print_str("     #####################         \n");
+    print_str("   #############                \n");
+    print_set_color(PRINT_COLOR_LIGHT_BLUE, PRINT_COLOR_BLACK);
+    print_str("  ############                  \n");
+    print_str(" ############                   \n");
+    print_set_color(PRINT_COLOR_BLUE, PRINT_COLOR_BLACK);
+    print_str("############                    \n");
+    print_str(" ############                   \n");
+    print_set_color(PRINT_COLOR_YELLOW, PRINT_COLOR_BLACK);
+    print_str("  ############                  \n");
+    print_str("   #############                \n");
+    print_set_color(PRINT_COLOR_GREEN, PRINT_COLOR_BLACK);
+    print_str("     #################arl0S        \n");
+    print_str("       ###################         \n");
+    print_set_color(PRINT_COLOR_LIGHT_GREEN, PRINT_COLOR_BLACK);
+    print_str("        #################          \n");
+    print_str("           ##########              \n");
+}
+void print_logo_goodbye(void)
+{
+    print_set_color(PRINT_COLOR_PINK, PRINT_COLOR_BLACK);
+    print_str("           #########                     \n");
+    print_str("       ##################                \n");
+    print_set_color(PRINT_COLOR_MAGENTA, PRINT_COLOR_BLACK);
+    print_str("     #####################               \n");
+    print_str("   ############                          \n");
+    print_set_color(PRINT_COLOR_LIGHT_BLUE, PRINT_COLOR_BLACK);
+    print_str("  ##########                             \n");
+    print_str(" #########        ###########           \n");
+    print_set_color(PRINT_COLOR_BLUE, PRINT_COLOR_BLACK);
+    print_str("########          ###########          \n");
+    print_str(" ########           ##########        \n");
+    print_set_color(PRINT_COLOR_YELLOW, PRINT_COLOR_BLACK);
+    print_str("  ########          ##########        \n");
+    print_str("   ######################### oodbye  \n");
+    print_set_color(PRINT_COLOR_GREEN, PRINT_COLOR_BLACK);
+    print_str("     ######################           \n");
+    print_str("       ###################               \n");
+}

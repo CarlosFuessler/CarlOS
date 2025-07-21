@@ -36,7 +36,7 @@ void kernel_main(void)
     print_clear();
 
     // Falls Shell beendet wird
-    print_str("System wird heruntergefahren...\n");
+    print_logo_goodbye();
     while (1)
     {
         // Halt
