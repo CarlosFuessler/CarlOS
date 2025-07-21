@@ -124,7 +124,6 @@ void cmd_about(void)
     print_str("Version:     1.0\n");
     print_str("By:  CarlosFuessler\n");
     print_str("Architectur: x86_64\n");
-    print_str("Features:\n");
 }
 
 void cmd_help(void)

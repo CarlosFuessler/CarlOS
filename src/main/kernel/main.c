@@ -8,7 +8,7 @@ void kernel_main(void)
     print_clear();
     print_set_color(PRINT_COLOR_YELLOW, PRINT_COLOR_BLACK);
     print_str("Welcome to CarlOS!\n");
-    print_str("Press < to start the shell!\n\n");
+    print_str("Press $ to start the shell!\n\n");
 
     // Keyboard initialisieren
     keyboard_init();
@@ -25,7 +25,7 @@ void kernel_main(void)
         {
             print_str("Falsche Taste! Druecken Sie <\n");
         }
-    } while (input != '<');
+    } while (input != '$');
 
     print_str("Shell wird gestartet...\n\n");
 
