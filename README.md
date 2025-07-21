@@ -39,3 +39,4 @@ qemu-system-x86_64 -cdrom  -fda dist/x86_64/kernel.iso
 - Basic Printingfunctions
 - String Conversion
 - Shell prompting
+- File-System
