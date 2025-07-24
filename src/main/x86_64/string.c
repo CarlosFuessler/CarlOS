@@ -1,6 +1,6 @@
 #include "string.h"
 
-typedef int bool;
+typedef bool;
 #define true 1
 #define false 0
 
@@ -127,13 +127,12 @@ void hex_to_string(unsigned int value, char *buffer)
     buffer[index] = '\0';
 }
 
-void _stoi(const char *str)
+int _stoi(const char *str)
 {
     if (str == NULL)
         return 0;
 
     int res = 0;
-
     bool negative = false;
 
     while (*str == ' ')
@@ -145,12 +144,17 @@ void _stoi(const char *str)
     {
         negative = true;
         str++;
+    }
+    else if (*str == '+') // <- Optional: Plus-Zeichen
+    {
+        str++;
+    }
 
-        while (*str >= '0' && *str <= '9')
-        {
-            res = res * 10 + (*str - '0');
-            str++;
-        }
+    // <- KORRIGIERT: Zahlen-Verarbeitung für ALLE Zahlen
+    while (*str >= '0' && *str <= '9')
+    {
+        res = res * 10 + (*str - '0');
+        str++;
     }
 
     return negative ? -res : res;

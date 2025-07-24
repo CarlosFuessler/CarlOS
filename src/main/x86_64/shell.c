@@ -2,6 +2,7 @@
 #include "keyboard.h"
 #include "print.h"
 #include "string.h"
+#include "calc.h"
 
 // GLOBALE VARIABLEN
 static char input_buffer[SHELL_BUFFER_SIZE];
@@ -51,6 +52,10 @@ void shell_process_command(const char *command)
     else if (strcmp(command, "echo") == 0)
     {
         echo();
+    }
+    else if (strcmp(command, "calc") == 0)
+    {
+        cmd_calc();
     }
     else
 
@@ -130,7 +135,6 @@ void cmd_about(void)
     print_str("     Version:     1.0\n");
     print_str("     By:  CarlosFuessler\n");
     print_str("     Architectur: x86_64\n\n");
-    print_calc();
 }
 
 void cmd_help(void)
@@ -142,6 +146,7 @@ void cmd_help(void)
     print_str("clear  - Clears the screen\n");
     print_str("color  - Lets you change the system font\n");
     print_str("echo   -Lets you write some text in the shell\n");
+    print_str("calc   -Lets you open an calculator\n");
     print_str("\nUse ESC to leave the shell\n");
 }
 
@@ -239,4 +244,8 @@ void echo()
         }
 
     } while (input != '$');
+}
+cmd_calc(void)
+{
+    calc();
 }

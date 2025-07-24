@@ -207,8 +207,10 @@ void print_calc(void)
 
     uint8_t b = a * a;
 
-    char *erg;
+    char erg[16];
+
     int_to_string(b, erg);
 
-    print_char(erg);
+    print_str(erg);
+    print_str("\n");
 }
