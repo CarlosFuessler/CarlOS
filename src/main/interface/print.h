@@ -34,3 +34,4 @@ void print_newline(void);
 void delete_char(void);
 void print_logo(void);
 void print_logo_goodbye(void);
+void print_logo_welcome(void);

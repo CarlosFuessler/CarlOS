@@ -182,3 +182,19 @@ void print_logo_goodbye(void)
     print_str("     ######################           \n");
     print_str("       ###################               \n");
 }
+void print_logo_welcome(void)
+{
+
+    print_set_color(PRINT_COLOR_PINK, PRINT_COLOR_BLACK);
+    print_str("#######                           #######  \n");
+    print_str(" ########                       ######## \n");
+    print_set_color(PRINT_COLOR_BLUE, PRINT_COLOR_BLACK);
+    print_str("  ########                    ########          \n");
+    print_str("   ########        ###       ########        \n");
+    print_set_color(PRINT_COLOR_LIGHT_BLUE, PRINT_COLOR_BLACK);
+    print_str("    ########     ######    ########        \n");
+    print_str("     ############################# elcome \n");
+    print_set_color(PRINT_COLOR_WHITE, PRINT_COLOR_BLACK);
+    print_str("       #########        ########          \n");
+    print_str("        #######         #######              \n\n\n");
+}
