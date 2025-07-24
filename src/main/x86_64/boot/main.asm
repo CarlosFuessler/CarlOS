@@ -1,8 +1,8 @@
 global start
 
-; Titel für Linker
 extern long_mode_start
 
+; Titel für Linker
 section .text
 bits 32
 
