@@ -199,18 +199,3 @@ void print_logo_welcome(void)
     print_str("       #########        ########          \n");
     print_str("        #######         #######              \n\n\n");
 }
-
-void print_calc(void)
-{
-
-    uint8_t a = 2;
-
-    uint8_t b = a * a;
-
-    char erg[16];
-
-    int_to_string(b, erg);
-
-    print_str(erg);
-    print_str("\n");
-}
