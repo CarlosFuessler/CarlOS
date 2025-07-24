@@ -1,6 +1,7 @@
 // filepath: /Users/carlos/Documents/Projects/CarlOS/src/main/kernel/print.c
 #include "print.h"
 #include <stddef.h> // Für size_t
+#include <string.h>
 
 static const size_t NUM_COLS = 80;
 static const size_t NUM_ROWS = 25;
@@ -197,4 +198,17 @@ void print_logo_welcome(void)
     print_set_color(PRINT_COLOR_WHITE, PRINT_COLOR_BLACK);
     print_str("       #########        ########          \n");
     print_str("        #######         #######              \n\n\n");
+}
+
+void print_calc(void)
+{
+
+    uint8_t a = 2;
+
+    uint8_t b = a * a;
+
+    char *erg;
+    int_to_string(b, erg);
+
+    print_char(erg);
 }
