@@ -15,7 +15,9 @@ void shell_init(void)
 {
     print_clear();
     print_set_color(forground_color, background_color);
-    print_str("\n===CarlOS Shell v1.0===\n\n");
+    print_str("####################################\n");
+    print_str("######## CarlOS Shell v1.0 #########\n");
+    print_str("####################################\n");
     print_str("Wirte <help> for a list of all commands!\n\n");
 }
 
