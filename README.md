@@ -41,5 +41,14 @@ qemu-system-x86_64 -cdrom  -fda dist/x86_64/kernel.iso
 - Shell prompting
 - Calculator
 
+#
+## Not implemented yet!
+
+- file system
+- memory managment
+- 3d graphics
+
+
+
 ![plot](Assets/about.png)
 

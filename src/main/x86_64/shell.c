@@ -147,8 +147,8 @@ void cmd_help(void)
     print_str("help   - Shows this help\n");
     print_str("clear  - Clears the screen\n");
     print_str("color  - Lets you change the system font\n");
-    print_str("echo   -Lets you write some text in the shell\n");
-    print_str("calc   -Lets you open an calculator\n");
+    print_str("echo   - Lets you write some text in the shell\n");
+    print_str("calc   - Lets you open an calculator\n");
     print_str("\nUse ESC to leave the shell\n");
 }
 

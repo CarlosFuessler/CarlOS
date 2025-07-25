@@ -58,7 +58,6 @@ static void keyboard_wait_controller_ready(void)
 {
     while (inb(KEYBOARD_STATUS_PORT) & KEYBOARD_STATUS_INPUT_FULL)
     {
-        // Warte bis Input-Buffer leer ist
     }
 }
 
@@ -67,7 +66,6 @@ static void keyboard_wait_for_data(void)
 {
     while (!(inb(KEYBOARD_STATUS_PORT) & KEYBOARD_STATUS_OUTPUT_FULL))
     {
-        // Warte bis Output-Buffer voll ist
     }
 }
 
@@ -97,7 +95,6 @@ static char buffer_get_char(void)
     return c;
 }
 
-// ========== ÖFFENTLICHE FUNKTIONEN ==========
 // Initialisiert das Keyboard-System
 void keyboard_init(void)
 {
