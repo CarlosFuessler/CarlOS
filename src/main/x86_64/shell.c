@@ -3,8 +3,10 @@
 #include "print.h"
 #include "string.h"
 #include "calc.h"
+#include "graphics.h"
 
 // GLOBALE VARIABLEN
+
 static char input_buffer[SHELL_BUFFER_SIZE];
 static size_t buffer_pos = 0;
 uint8_t forground_color = PRINT_COLOR_PINK;
@@ -113,7 +115,7 @@ void shell_run(void)
             }
             else if (c >= 32 && c <= 126)
             { // Druckbare Zeichen
-                // Prüfe Buffer-Überlauf
+
                 if (buffer_pos < SHELL_BUFFER_SIZE - 1)
                 {
                     input_buffer[buffer_pos] = c;
@@ -247,7 +249,8 @@ void echo()
 
     } while (input != '$');
 }
-cmd_calc(void)
+
+void cmd_calc(void)
 {
-    calc();
+    calc_input();
 }

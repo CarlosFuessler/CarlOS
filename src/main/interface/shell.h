@@ -1,6 +1,5 @@
 #pragma once
 
-#include <stdint.h>
 #include <stddef.h>
 
 #define SHELL_BUFFER_SIZE 128
@@ -11,6 +10,8 @@ void shell_run(void);
 void shell_process_command(const char *command);
 
 // Command-Funktionen
+void switch_color();
+void echo();
 void cmd_about(void);
 void cmd_help(void);
 void cmd_calc(void);

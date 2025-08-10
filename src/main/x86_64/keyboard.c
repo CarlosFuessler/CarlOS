@@ -173,7 +173,6 @@ char keyboard_get_char(void)
     // Warte bis ein Zeichen verfügbar ist
     while (!keyboard_has_input())
     {
-        // Polling - in einem echten OS würde man hier Interrupts verwenden
     }
 
     return buffer_get_char();

@@ -9,10 +9,9 @@ kernel_obj_files := $(patsubst src/main/kernel/%.c, build/kernel/%.o, $(kernel_s
 
 x86_64_asm_src_files := $(shell find src/main/x86_64 -name *.asm)
 x86_64_asm_obj_files := $(patsubst src/main/x86_64/%.asm, build/x86_64/%.o, $(x86_64_asm_src_files))
-
 $(x86_64_c++_obj_files): build/x86_64/%.o : src/main/x86_64/%.cpp
 	mkdir -p $(dir $@)
-	x86_64-elf-g++ -c -I src/main/interface -ffreestanding $(patsubst build/x86_64/%.o,src/main/x86_64/%.cpp,$@) -o $@
+	x86_64-elf-g++ -c -I src/main/interface -ffreestanding -fno-exceptions -fno-rtti -fno-threadsafe-statics -nostdlib -fno-use-cxa-atexit $(patsubst build/x86_64/%.o,src/main/x86_64/%.cpp,$@) -o $@
 
 $(kernel_obj_files): build/kernel/%.o : src/main/kernel/%.c
 	mkdir -p $(dir $@)
