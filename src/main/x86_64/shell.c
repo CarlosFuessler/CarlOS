@@ -4,6 +4,7 @@
 #include "string.h"
 #include "calc.h"
 #include "graphics.h"
+#include "memory_management.h"
 
 // GLOBALE VARIABLEN
 
