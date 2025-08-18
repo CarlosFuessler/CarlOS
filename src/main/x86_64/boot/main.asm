@@ -102,7 +102,7 @@ enable_paging: ; Longmode aktivieren
     mov cr3, eax    ; eax auf cr3
 
     mov eax, cr4 ; cr4 lesen
-    or eax, 1 << 5 <; mit Bit 5 longmode erzwimgen
+    or eax, 1 << 5; mit Bit 5 longmode erzwimgen
     mov cr4, eax ; reset
 
     mov ecx, 0xC0000080
