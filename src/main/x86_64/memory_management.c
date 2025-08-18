@@ -10,7 +10,7 @@ void *_memset(void *ptr, int value, size_t size)
     return ptr;
 }
 
-// Speicher kopieren - HINZUGEFÜGT
+// Speicher kopieren
 void *_memcpy(void *dest, const void *src, size_t size)
 {
     unsigned char *d = (unsigned char *)dest;
