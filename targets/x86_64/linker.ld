@@ -1,16 +1,33 @@
 ENTRY(start)
 
-SECTIONS{
+SECTIONS
+{
+  . = 1M;
 
-    . = 1M;
+  .multiboot :
+  {
+    KEEP(*(.multiboot_header))
+  }
 
-    .boot :
-    {
-        KEEP(*(.multiboot_header))
-    }
+  .text :
+  {
+    *(.text*)
+  }
 
-    .text :
-    {
-        *(.text)
-    }
+  .rodata :
+  {
+    *(.rodata*)
+  }
+
+  .data :
+  {
+    *(.data*)
+  }
+
+  .bss :
+  {
+    *(COMMON)
+    *(.bss*)
+    *(.sbss*)
+  }
 }

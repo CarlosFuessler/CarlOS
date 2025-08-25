@@ -22,6 +22,7 @@ void keyboard_init(void);
 char keyboard_get_char(void);
 int keyboard_has_input(void);
 void keyboard_wait_for_key(void);
+
 #define KEY_LESS_THAN 0x3C
 
 // Low-level Funktionen
