@@ -40,7 +40,6 @@ void calc_input(void)
 
         digit_index = 0;
 
-        // Read digits
         while (1)
         {
             input = keyboard_get_char();
@@ -101,7 +100,7 @@ calculate:
         return;
     }
 
-    // Calculate result
+    // berechne
     print_str("\n");
     print_str("Calculation: ");
     int result = _stoi((char *)terms[0].number);

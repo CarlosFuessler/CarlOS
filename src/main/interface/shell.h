@@ -15,3 +15,8 @@ void echo();
 void cmd_about(void);
 void cmd_help(void);
 void cmd_calc(void);
+void cmd_touch(void);
+void cmd_write(void);
+void cmd_cat(void);
+void cmd_ls(void);
+void cmd_rm(void);

@@ -10,7 +10,6 @@ void *_memset(void *ptr, int value, size_t size)
     return ptr;
 }
 
-// Speicher kopieren
 void *_memcpy(void *dest, const void *src, size_t size)
 {
     unsigned char *d = (unsigned char *)dest;
@@ -24,7 +23,6 @@ void *_memcpy(void *dest, const void *src, size_t size)
     return dest;
 }
 
-// Speicher vergleichen
 int memcmp(const void *ptr1, const void *ptr2, size_t size)
 {
     const unsigned char *p1 = (const unsigned char *)ptr1;

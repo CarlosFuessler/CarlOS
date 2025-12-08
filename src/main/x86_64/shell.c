@@ -5,17 +5,15 @@
 #include "calc.h"
 #include "graphics.h"
 #include "memory_management.h"
-
-// GLOBALE VARIABLEN
+#include "file_system.h"
 
 static char input_buffer[SHELL_BUFFER_SIZE];
 static size_t buffer_pos = 0;
 uint8_t forground_color = PRINT_COLOR_PINK;
 uint8_t background_color = PRINT_COLOR_BLACK;
-
-// SHELL INITIALISIERUNG
 void shell_init(void)
 {
+    fs_init();
     print_clear();
     print_set_color(forground_color, background_color);
     print_str("####################################\n");
@@ -24,20 +22,15 @@ void shell_init(void)
     print_str("Wirte <help> for a list of all commands!\n\n");
 }
 
-// COMMAND PROCESSING
 void shell_process_command(const char *command)
 {
-    // Entferne führende/nachfolgende Leerzeichen
     while (*command == ' ')
         command++;
 
-    // Leerer Befehl - ignorieren
     if (strlen(command) == 0)
     {
         return;
     }
-
-    // Command-Vergleich
     if (strcmp(command, "about") == 0)
     {
         cmd_about();
@@ -62,6 +55,26 @@ void shell_process_command(const char *command)
     {
         cmd_calc();
     }
+    else if (strcmp(command, "touch") == 0)
+    {
+        cmd_touch();
+    }
+    else if (strcmp(command, "write") == 0)
+    {
+        cmd_write();
+    }
+    else if (strcmp(command, "cat") == 0)
+    {
+        cmd_cat();
+    }
+    else if (strcmp(command, "ls") == 0)
+    {
+        cmd_ls();
+    }
+    else if (strcmp(command, "rm") == 0)
+    {
+        cmd_rm();
+    }
     else
 
     {
@@ -72,12 +85,9 @@ void shell_process_command(const char *command)
     }
 }
 
-// SHELL HAUPTSCHLEIFE
 void shell_run(void)
 {
     buffer_pos = 0;
-
-    // Zeige Prompt
     print_str("\nCarlOS> ");
 
     while (1)
@@ -90,14 +100,8 @@ void shell_run(void)
             if (c == KEY_ENTER)
             {
                 print_newline();
-
-                // Null-terminiere den Input
                 input_buffer[buffer_pos] = '\0';
-
-                // Verarbeite den Befehl
                 shell_process_command(input_buffer);
-
-                // Reset Buffer und zeige neuen Prompt
                 buffer_pos = 0;
                 print_str("CarlOS> ");
             }
@@ -152,6 +156,11 @@ void cmd_help(void)
     print_str("color  - Lets you change the system font\n");
     print_str("echo   - Lets you write some text in the shell\n");
     print_str("calc   - Lets you open an calculator\n");
+    print_str("touch  - Create a new file\n");
+    print_str("write  - Write text to a file\n");
+    print_str("cat    - Display file content\n");
+    print_str("ls     - List all files\n");
+    print_str("rm     - Delete a file\n");
     print_str("\nUse ESC to leave the shell\n");
 }
 
@@ -254,4 +263,223 @@ void echo()
 void cmd_calc(void)
 {
     calc_input();
+}
+
+void cmd_touch(void)
+{
+    print_str("Filename: ");
+    char filename[MAX_FILENAME];
+    size_t pos = 0;
+
+    while (1)
+    {
+        char c = keyboard_get_char();
+
+        if (c == KEY_ENTER)
+        {
+            print_newline();
+            filename[pos] = '\0';
+            break;
+        }
+
+        if (c == KEY_BACKSPACE && pos > 0)
+        {
+            pos--;
+            delete_char();
+        }
+        else if (pos < MAX_FILENAME - 1 && c != KEY_BACKSPACE)
+        {
+            filename[pos++] = c;
+            print_char(c);
+        }
+    }
+
+    int result = fs_create(filename);
+    if (result == 0)
+    {
+        print_str("File created: ");
+        print_str(filename);
+        print_newline();
+    }
+    else if (result == -2)
+    {
+        print_str("Error: File already exists\n");
+    }
+    else if (result == -3)
+    {
+        print_str("Error: No space left\n");
+    }
+    else
+    {
+        print_str("Error: Invalid filename\n");
+    }
+}
+
+void cmd_write(void)
+{
+    print_str("Filename: ");
+    char filename[MAX_FILENAME];
+    size_t pos = 0;
+
+    while (1)
+    {
+        char c = keyboard_get_char();
+
+        if (c == KEY_ENTER)
+        {
+            print_newline();
+            filename[pos] = '\0';
+            break;
+        }
+
+        if (c == KEY_BACKSPACE && pos > 0)
+        {
+            pos--;
+            delete_char();
+        }
+        else if (pos < MAX_FILENAME - 1 && c != KEY_BACKSPACE)
+        {
+            filename[pos++] = c;
+            print_char(c);
+        }
+    }
+
+    print_str("Content ($ to finish): ");
+    char content[MAX_FILESIZE];
+    pos = 0;
+
+    while (1)
+    {
+        char c = keyboard_get_char();
+
+        if (c == '$')
+        {
+            print_newline();
+            content[pos] = '\0';
+            break;
+        }
+
+        if (c == KEY_ENTER)
+        {
+            if (pos < MAX_FILESIZE - 1)
+            {
+                content[pos++] = '\n';
+                print_newline();
+            }
+        }
+        else if (c == KEY_BACKSPACE && pos > 0)
+        {
+            pos--;
+            delete_char();
+        }
+        else if (pos < MAX_FILESIZE - 1 && c != KEY_BACKSPACE)
+        {
+            content[pos++] = c;
+            print_char(c);
+        }
+    }
+
+    int result = fs_write(filename, content);
+    if (result == 0)
+    {
+        print_str("Content written to ");
+        print_str(filename);
+        print_newline();
+    }
+    else
+    {
+        print_str("Error: File not found\n");
+    }
+}
+
+void cmd_cat(void)
+{
+    print_str("Filename: ");
+    char filename[MAX_FILENAME];
+    size_t pos = 0;
+
+    while (1)
+    {
+        char c = keyboard_get_char();
+
+        if (c == KEY_ENTER)
+        {
+            print_newline();
+            filename[pos] = '\0';
+            break;
+        }
+
+        if (c == KEY_BACKSPACE && pos > 0)
+        {
+            pos--;
+            delete_char();
+        }
+        else if (pos < MAX_FILENAME - 1 && c != KEY_BACKSPACE)
+        {
+            filename[pos++] = c;
+            print_char(c);
+        }
+    }
+
+    char buffer[MAX_FILESIZE];
+    int result = fs_read(filename, buffer, MAX_FILESIZE);
+
+    if (result >= 0)
+    {
+        print_newline();
+        print_str(buffer);
+        print_newline();
+    }
+    else
+    {
+        print_str("Error: File not found\n");
+    }
+}
+
+void cmd_ls(void)
+{
+    print_str("Files:\n");
+    fs_list();
+}
+
+void cmd_rm(void)
+{
+    print_str("Filename: ");
+    char filename[MAX_FILENAME];
+    size_t pos = 0;
+
+    while (1)
+    {
+        char c = keyboard_get_char();
+
+        if (c == KEY_ENTER)
+        {
+            print_newline();
+            filename[pos] = '\0';
+            break;
+        }
+
+        if (c == KEY_BACKSPACE && pos > 0)
+        {
+            pos--;
+            delete_char();
+        }
+        else if (pos < MAX_FILENAME - 1 && c != KEY_BACKSPACE)
+        {
+            filename[pos++] = c;
+            print_char(c);
+        }
+    }
+
+    int result = fs_delete(filename);
+    if (result == 0)
+    {
+        print_str("File deleted: ");
+        print_str(filename);
+        print_newline();
+    }
+    else
+    {
+        print_str("Error: File not found\n");
+    }
 }

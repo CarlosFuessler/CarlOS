@@ -1,24 +1,23 @@
 #include "keyboard.h"
 #include "print.h"
 
-// ========== KONSTANTEN ==========
-// PS/2 Keyboard Controller Ports
-#define KEYBOARD_DATA_PORT 0x60    // Daten-Port
-#define KEYBOARD_STATUS_PORT 0x64  // Status-Port
-#define KEYBOARD_COMMAND_PORT 0x64 // Kommando-Port
+// Keyboard Controller Ports
+#define KEYBOARD_DATA_PORT 0x60
+#define KEYBOARD_STATUS_PORT 0x64
+#define KEYBOARD_COMMAND_PORT 0x64
 
-// Status-Register Bits
-#define KEYBOARD_STATUS_OUTPUT_FULL 0x01 // Ausgabe-Buffer ist voll
-#define KEYBOARD_STATUS_INPUT_FULL 0x02  // Eingabe-Buffer ist voll
+// Status Bits
+#define KEYBOARD_STATUS_OUTPUT_FULL 0x01
+#define KEYBOARD_STATUS_INPUT_FULL 0x02
 
-// ========== GLOBALE VARIABLEN ==========
+// Globale Variablen
 static keyboard_status_t keyboard_status = KEYBOARD_NOT_INITIALIZED;
-static char input_buffer[256];      // Ring-Buffer für Eingaben
-static size_t buffer_read_pos = 0;  // Lese-Position im Buffer
-static size_t buffer_write_pos = 0; // Schreib-Position im Buffer
-static size_t buffer_count = 0;     // Anzahl Zeichen im Buffer
+static char input_buffer[256];
+static size_t buffer_read_pos = 0;
+static size_t buffer_write_pos = 0;
+static size_t buffer_count = 0;
 
-// Deutsche Tastatur mit korrekter < Taste (links neben Y/Z)
+// Deutsche Tastatur Layout
 static const char scancode_to_ascii_table[128] = {
     0, KEY_ESCAPE, '1', '2', '3', '4', '5', '6',           // 0x00-0x07
     '7', '8', '9', '0', 's', '\'', KEY_BACKSPACE, KEY_TAB, // 0x08-0x0F
@@ -37,8 +36,8 @@ static const char scancode_to_ascii_table[128] = {
     0, 0, 0, 0, 0, 0, 0, 0,                                // 0x70-0x77
     0, 0, 0, 0, 0, 0, 0, 0                                 // 0x78-0x7F
 };
-// ========== LOW-LEVEL I/O FUNKTIONEN ==========
-// Liest ein Byte von einem Port
+
+// Port I/O
 static inline uint8_t inb(uint16_t port)
 {
     uint8_t result;
@@ -46,14 +45,12 @@ static inline uint8_t inb(uint16_t port)
     return result;
 }
 
-// Schreibt ein Byte zu einem Port
 static inline void outb(uint16_t port, uint8_t value)
 {
     __asm__ volatile("outb %0, %1" : : "a"(value), "Nd"(port));
 }
 
-// ========== KEYBOARD CONTROLLER FUNKTIONEN ==========
-// Wartet bis der Keyboard Controller bereit ist
+// Warte bis Controller bereit
 static void keyboard_wait_controller_ready(void)
 {
     while (inb(KEYBOARD_STATUS_PORT) & KEYBOARD_STATUS_INPUT_FULL)
@@ -61,7 +58,6 @@ static void keyboard_wait_controller_ready(void)
     }
 }
 
-// Wartet auf Daten vom Keyboard
 static void keyboard_wait_for_data(void)
 {
     while (!(inb(KEYBOARD_STATUS_PORT) & KEYBOARD_STATUS_OUTPUT_FULL))
@@ -69,8 +65,7 @@ static void keyboard_wait_for_data(void)
     }
 }
 
-// ========== BUFFER-MANAGEMENT ==========
-// Fügt ein Zeichen zum Ring-Buffer hinzu
+// Buffer Management
 static void buffer_add_char(char c)
 {
     if (buffer_count < sizeof(input_buffer))
@@ -81,12 +76,11 @@ static void buffer_add_char(char c)
     }
 }
 
-// Liest ein Zeichen aus dem Ring-Buffer
 static char buffer_get_char(void)
 {
     if (buffer_count == 0)
     {
-        return 0; // Buffer ist leer
+        return 0;
     }
 
     char c = input_buffer[buffer_read_pos];
@@ -95,48 +89,38 @@ static char buffer_get_char(void)
     return c;
 }
 
-// Initialisiert das Keyboard-System
 void keyboard_init(void)
 {
-    // print_str("Keyboard...\n");
-
-    // Reset Buffer-Variablen
+    // Reset Buffer
     buffer_read_pos = 0;
     buffer_write_pos = 0;
     buffer_count = 0;
 
-    // Leere den Keyboard-Buffer
     while (inb(KEYBOARD_STATUS_PORT) & KEYBOARD_STATUS_OUTPUT_FULL)
     {
         inb(KEYBOARD_DATA_PORT);
     }
 
     keyboard_status = KEYBOARD_READY;
-    // print_str("Keyboard: ready!\n");
 }
 
-// Liest einen Scancode direkt vom Keyboard
 uint8_t keyboard_read_scancode(void)
 {
-    // Prüfe ob Daten verfügbar sind
     if (!(inb(KEYBOARD_STATUS_PORT) & KEYBOARD_STATUS_OUTPUT_FULL))
     {
-        return 0; // Keine Daten verfügbar
+        return 0;
     }
 
     return inb(KEYBOARD_DATA_PORT);
 }
 
-// Konvertiert einen Scancode zu ASCII
 char scancode_to_ascii(uint8_t scancode)
 {
-    // Ignoriere Release-Codes (Bit 7 gesetzt)
     if (scancode & 0x80)
     {
         return 0;
     }
 
-    // Prüfe gültigen Bereich
     if (scancode >= sizeof(scancode_to_ascii_table))
     {
         return 0;
@@ -145,7 +129,6 @@ char scancode_to_ascii(uint8_t scancode)
     return scancode_to_ascii_table[scancode];
 }
 
-// Verarbeitet Keyboard-Input und füllt den Buffer
 void keyboard_process_input(void)
 {
     uint8_t scancode = keyboard_read_scancode();
@@ -160,17 +143,14 @@ void keyboard_process_input(void)
     }
 }
 
-// Prüft ob Eingaben verfügbar sind
 int keyboard_has_input(void)
 {
-    keyboard_process_input(); // Verarbeite neue Eingaben
+    keyboard_process_input();
     return buffer_count > 0;
 }
 
-// Holt das nächste Zeichen (blockierend wenn nötig)
 char keyboard_get_char(void)
 {
-    // Warte bis ein Zeichen verfügbar ist
     while (!keyboard_has_input())
     {
     }
@@ -178,13 +158,11 @@ char keyboard_get_char(void)
     return buffer_get_char();
 }
 
-// Wartet auf einen Tastendruck
 void keyboard_wait_for_key(void)
 {
-    keyboard_get_char(); // Blockiert bis eine Taste gedrückt wird
+    keyboard_get_char();
 }
 
-// Gibt den Keyboard-Status zurück
 keyboard_status_t keyboard_get_status(void)
 {
     return keyboard_status;

@@ -3,8 +3,6 @@
 typedef bool;
 #define true 1
 #define false 0
-
-// String-Länge berechnen
 size_t strlen(const char *str)
 {
     size_t length = 0;
@@ -15,7 +13,6 @@ size_t strlen(const char *str)
     return length;
 }
 
-// Strings vergleichen
 int strcmp(const char *str1, const char *str2)
 {
     size_t i = 0;
@@ -29,11 +26,10 @@ int strcmp(const char *str1, const char *str2)
     }
 
     if (str1[i] == str2[i])
-        return 0; // Beide zu Ende
+        return 0;
     return (str1[i] == '\0') ? -1 : 1;
 }
 
-// String kopieren
 char *_strcpy(char *dest, const char *src)
 {
     size_t i = 0;
@@ -46,7 +42,6 @@ char *_strcpy(char *dest, const char *src)
     return dest;
 }
 
-// Strings verketten
 char *_strcat(char *dest, const char *src)
 {
     size_t dest_len = strlen(dest);
@@ -61,7 +56,6 @@ char *_strcat(char *dest, const char *src)
     return dest;
 }
 
-// Integer zu String (für Debug)
 void int_to_string(int value, char *buffer)
 {
     if (value == 0)
@@ -85,8 +79,6 @@ void int_to_string(int value, char *buffer)
     if (is_negative)
         buffer[index++] = '-';
     buffer[index] = '\0';
-
-    // String umkehren
     for (int i = 0; i < index / 2; i++)
     {
         char temp = buffer[i];
@@ -95,7 +87,6 @@ void int_to_string(int value, char *buffer)
     }
 }
 
-// Hex zu String (für Debug)
 void hex_to_string(unsigned int value, char *buffer)
 {
     const char hex_digits[] = "0123456789ABCDEF";
@@ -145,12 +136,11 @@ int _stoi(const char *str)
         negative = true;
         str++;
     }
-    else if (*str == '+') // <- Optional: Plus-Zeichen
+    else if (*str == '+')
     {
         str++;
     }
 
-    // <- KORRIGIERT: Zahlen-Verarbeitung für ALLE Zahlen
     while (*str >= '0' && *str <= '9')
     {
         res = res * 10 + (*str - '0');

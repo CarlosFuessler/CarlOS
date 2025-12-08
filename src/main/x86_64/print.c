@@ -1,4 +1,3 @@
-// filepath: /Users/carlos/Documents/Projects/CarlOS/src/main/kernel/print.c
 #include "print.h"
 #include <stddef.h> // Für size_t
 #include <string.h>
@@ -138,64 +137,65 @@ void delete_char(void)
     }
 }
 
-void print_logo(void)
-{
-    print_set_color(PRINT_COLOR_PINK, PRINT_COLOR_BLACK);
-    print_str("           #########               \n");
-    print_str("       ##################          \n");
-    print_set_color(PRINT_COLOR_MAGENTA, PRINT_COLOR_BLACK);
-    print_str("     #####################         \n");
-    print_str("   #############                \n");
-    print_set_color(PRINT_COLOR_LIGHT_BLUE, PRINT_COLOR_BLACK);
-    print_str("  ############                  \n");
-    print_str(" ############                   \n");
-    print_set_color(PRINT_COLOR_BLUE, PRINT_COLOR_BLACK);
-    print_str("############                    \n");
-    print_str(" ############                   \n");
-    print_set_color(PRINT_COLOR_YELLOW, PRINT_COLOR_BLACK);
-    print_str("  ############                  \n");
-    print_str("   #############                \n");
-    print_set_color(PRINT_COLOR_GREEN, PRINT_COLOR_BLACK);
-    print_str("     #################arl0S        \n");
-    print_str("       ###################         \n");
-    print_set_color(PRINT_COLOR_LIGHT_GREEN, PRINT_COLOR_BLACK);
-    print_str("        #################          \n");
-    print_str("           ##########              \n");
-}
 void print_logo_goodbye(void)
 {
     print_set_color(PRINT_COLOR_PINK, PRINT_COLOR_BLACK);
-    print_str("           #########                     \n");
-    print_str("       ##################                \n");
+    print_str("           ___________                     \n");
+    print_str("       __##################__                \n");
     print_set_color(PRINT_COLOR_MAGENTA, PRINT_COLOR_BLACK);
-    print_str("     #####################               \n");
-    print_str("   ############                          \n");
+    print_str("     |#######################|               \n");
+    print_str("   |############_____                          \n");
     print_set_color(PRINT_COLOR_LIGHT_BLUE, PRINT_COLOR_BLACK);
-    print_str("  ##########                             \n");
-    print_str(" #########        ###########           \n");
+    print_str("  |##########                             \n");
+    print_str(" |#########        .=========.           \n");
     print_set_color(PRINT_COLOR_BLUE, PRINT_COLOR_BLACK);
-    print_str("########          ###########          \n");
-    print_str(" ########           ##########        \n");
+    print_str("########          |#########|          \n");
+    print_str(" |########         |#########|        \n");
     print_set_color(PRINT_COLOR_YELLOW, PRINT_COLOR_BLACK);
-    print_str("  ########          ##########        \n");
-    print_str("   ######################### oodbye  \n");
+    print_str("  |########        |#########|        \n");
+    print_str("   |#########################| oodbye  \n");
     print_set_color(PRINT_COLOR_GREEN, PRINT_COLOR_BLACK);
-    print_str("     ######################           \n");
-    print_str("       ###################               \n");
+    print_str("     |######################|           \n");
+    print_str("       --##################--               \n");
 }
+
+void print_logo(void)
+{
+    print_set_color(PRINT_COLOR_PINK, PRINT_COLOR_BLACK);
+    print_str("           ___________               \n");
+    print_str("       __##################__          \n");
+    print_set_color(PRINT_COLOR_MAGENTA, PRINT_COLOR_BLACK);
+    print_str("     |#######################|         \n");
+    print_str("   |#############_____                \n");
+    print_set_color(PRINT_COLOR_LIGHT_BLUE, PRINT_COLOR_BLACK);
+    print_str("  |############                  \n");
+    print_str(" |############                   \n");
+    print_set_color(PRINT_COLOR_BLUE, PRINT_COLOR_BLACK);
+    print_str("############                    \n");
+    print_str(" |############                   \n");
+    print_set_color(PRINT_COLOR_YELLOW, PRINT_COLOR_BLACK);
+    print_str("  |############                  \n");
+    print_str("   |#############_____                \n");
+    print_set_color(PRINT_COLOR_GREEN, PRINT_COLOR_BLACK);
+    print_str("     |#################| arl0S        \n");
+    print_str("       --##################--         \n");
+    print_set_color(PRINT_COLOR_LIGHT_GREEN, PRINT_COLOR_BLACK);
+    print_str("        --|#############|--          \n");
+    print_str("           -----------              \n");
+}
+
 void print_logo_welcome(void)
 {
-
     print_set_color(PRINT_COLOR_PINK, PRINT_COLOR_BLACK);
-    print_str("#######                           #######  \n");
-    print_str(" ########                       ######## \n");
+    print_str(" .======.                         .======.  \n");
+    print_str(" | #### |                         | #### | \n");
     print_set_color(PRINT_COLOR_BLUE, PRINT_COLOR_BLACK);
-    print_str("  ########                    ########          \n");
-    print_str("   ########        ###       ########        \n");
+    print_str("  | ### |                        | ### |          \n");
+    print_str("   | ## |        .===.           | ## |        \n");
     print_set_color(PRINT_COLOR_LIGHT_BLUE, PRINT_COLOR_BLACK);
-    print_str("    ########     ######    ########        \n");
-    print_str("     ############################# elcome \n");
+    print_str("    | # |      .=====.           | # |        \n");
+    print_str("     | #====================###### | elcome \n");
     print_set_color(PRINT_COLOR_WHITE, PRINT_COLOR_BLACK);
-    print_str("       #########        ########          \n");
-    print_str("        #######         #######              \n\n\n");
+    print_str("       | ########        ######## |          \n");
+    print_str("        `======='       '========'              \n\n\n");
 }
