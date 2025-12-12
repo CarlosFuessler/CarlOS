@@ -9,6 +9,9 @@ A easy OS written in ASM and C
 #Build the Docker-Container
 docker build build_env -t carl_os
 
+#Create empty disk image
+touch disk.img
+
 #To run the VM
 ./run.sh
 
