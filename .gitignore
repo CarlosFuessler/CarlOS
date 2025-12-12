@@ -20,3 +20,4 @@ dist/
 # Temporäre Dateien
 *.tmp
 *.temp
+disk.img
