@@ -1,56 +1,57 @@
 # CarlOS
 
-A easy OS written in ASM and C
+A simple hobby OS written in ASM and C.
 
-## Build-Instructions
+## Build / Run
+
+The easiest way is to build inside Docker and run with QEMU on your host.
 
 ```bash
+# 1) Build the Docker image (contains the cross toolchain)
+docker build -t carl_os build_env
 
-#Build the Docker-Container
-docker build build_env -t carl_os
-
-#Create empty disk image
-touch disk.img
-
-#To run the VM
+# 2) Build in Docker and boot in QEMU (also creates disk.img if missing)
 ./run.sh
-
-
-#Start Docker-Container
-docker run --rm -it -v $(pwd):/root/env carl_os
-
-# Build the Project
-make build-x86_64
-
-# And start it :-)
-qemu-system-x86_64 -cdrom  -fda dist/x86_64/kernel.iso
 ```
 
-## Projektstruktur
+### Notes
 
-- `src/main/x86_64/boot/` - Boot-Assembly-Code
-- `src/main/kernel/` - Kernel-C-Code
-- `src/main/interface/` - Header-Dateien
-- `targets/x86_64/` - Linker-Scripts und ISO-Konfiguration
+- Host requirements: Docker + `qemu-system-x86_64`.
+- The script writes the build output to `dist/` and uses `disk.img` as a raw disk.
 
-#
+### Manual build inside the container (optional)
+
+```bash
+docker run --rm -it -v "$(pwd)":/root/env carl_os
+make build-x86_64
+exit
+
+# then on the host
+qemu-system-x86_64 \
+	-cdrom dist/x86_64/kernel.iso \
+	-drive file=disk.img,format=raw,index=0,media=disk
+```
+
+## Project structure
+
+- `src/main/x86_64/boot/` - boot assembly
+- `src/main/kernel/` - kernel C code
+- `src/main/interface/` - headers
+- `targets/x86_64/` - linker script + ISO/GRUB config
+
 ## Features
 
-- 32-bit to 64-bit Long Mode switch 
-- VGA-Visuals
-- Basic Printingfunctions
-- String Conversion
-- Shell prompting
+- 32-bit to 64-bit long mode switch
+- VGA text output
+- Basic printing
+- String helpers (int/hex conversion)
+- Simple shell
 - Calculator
+- Basic disk + simple file system
 
-#
-## Not implemented yet!
+## Not implemented yet
 
-- file system
-- memory managment
-- 3d graphics
-
-
-
+- advanced memory management
+- 3D graphics
 ![plot](Assets/about.png)
 
