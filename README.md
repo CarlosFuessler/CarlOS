@@ -15,7 +15,6 @@ touch disk.img
 #To run the VM
 ./run.sh
 
-#If this dosent work ->
 
 #Start Docker-Container
 docker run --rm -it -v $(pwd):/root/env carl_os

@@ -1,5 +1,5 @@
 #include "print.h"
-#include <stddef.h> // Für size_t
+#include <stddef.h> // for size_t
 #include <string.h>
 
 static const size_t NUM_COLS = 80;
@@ -106,12 +106,12 @@ void print_newline(void)
 
 void delete_char(void)
 {
-    // Prüfe ob wir am Zeilenanfang sind
+    // Check if we are at the start of the line
     if (col > 0)
     {
-        col--; // Gehe ein Zeichen zurück
+        col--; // move one character back
 
-        // Lösche das Zeichen visuell
+        // Clear the character on screen
         buffer[row * NUM_COLS + col] = (struct Char){
             .character = ' ',
             .color = color,
@@ -119,17 +119,17 @@ void delete_char(void)
     }
     else if (row > 0)
     {
-        // Gehe zur vorherigen Zeile, ans Ende
+        // Go to the previous line (near the end)
         row--;
         col = NUM_COLS - 1;
 
-        // Finde das letzte Zeichen in der vorherigen Zeile
+        // Find the last character in the previous line
         while (col > 0 && buffer[row * NUM_COLS + col].character == ' ')
         {
             col--;
         }
 
-        // Lösche das gefundene Zeichen
+        // Clear the found character
         buffer[row * NUM_COLS + col] = (struct Char){
             .character = ' ',
             .color = color,

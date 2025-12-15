@@ -9,7 +9,7 @@
 #define ATA_PRIMARY_IO 0x1F0
 #define ATA_PRIMARY_CONTROL 0x3F6
 
-// ATA Befehle
+// ATA commands
 #define ATA_CMD_READ_SECTORS 0x20
 #define ATA_CMD_WRITE_SECTORS 0x30
 #define ATA_CMD_IDENTIFY 0xEC

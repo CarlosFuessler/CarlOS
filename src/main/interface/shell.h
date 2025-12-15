@@ -4,12 +4,12 @@
 
 #define SHELL_BUFFER_SIZE 128
 
-// Shell-Funktionen
+// Shell functions
 void shell_init(void);
 void shell_run(void);
 void shell_process_command(const char *command);
 
-// Command-Funktionen
+// Command functions
 void switch_color();
 void echo();
 void cmd_about(void);

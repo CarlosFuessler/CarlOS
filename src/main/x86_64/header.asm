@@ -1,19 +1,19 @@
-; Multiboot Header trägt zur kompatiblität
+; Multiboot header (for compatibility)
 
-; Für den Linker
+; For the linker
 section .multiboot_header
 
-; Start Label
+; Start label
 header_start:
 
-;Magische Nummer wichtig für den Multiboot Header
+; Magic number for Multiboot
     dd 0xe85250d6
 
-;Architektur
+; Architecture
 
     dd 0
 
-;Länge des Headers
+; Header length
 
     dd header_end -header_start
 
@@ -23,5 +23,5 @@ header_start:
     dw 0
     dd 8
 
-; Ende des Headers    
+; End of header
 header_end:

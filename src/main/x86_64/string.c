@@ -110,7 +110,7 @@ void hex_to_string(unsigned int value, char *buffer)
         value /= 16;
     }
 
-    // Umkehren und kopieren
+    // Reverse and copy
     for (int i = temp_index - 1; i >= 0; i--)
     {
         buffer[index++] = temp[i];
