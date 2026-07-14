@@ -23,5 +23,6 @@ dist/
 disk.img
 
 # Zig build artifacts
+build/
 .zig-cache/
 zig-out/
