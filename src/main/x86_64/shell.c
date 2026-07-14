@@ -119,7 +119,7 @@ void shell_run(void)
                 break;
             }
             else if (c >= 32 && c <= 126)
-            { // Druckbare Zeichen
+            {
 
                 if (buffer_pos < SHELL_BUFFER_SIZE - 1)
                 {
@@ -131,8 +131,6 @@ void shell_run(void)
         }
     }
 }
-
-// COMMAND IMPLEMENTATIONS
 
 void cmd_about(void)
 {
