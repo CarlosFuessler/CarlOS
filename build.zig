@@ -39,4 +39,22 @@ pub fn build(b: *std.Build) void {
 
     const build_step = b.step("build", "Build the kernel ISO");
     build_step.dependOn(&kernel_build.step);
+
+    // Create disk.img if it doesn't exist
+    const create_disk = b.addSystemCommand(&.{
+        "/bin/bash", "-c",
+        \\if [ ! -f disk.img ]; then dd if=/dev/zero of=disk.img bs=1M count=10; fi
+    });
+
+    // Run in QEMU
+    const run_qemu = b.addSystemCommand(&.{
+        "qemu-system-x86_64",
+        "-cdrom", "dist/x86_64/kernel.iso",
+        "-drive", "file=disk.img,format=raw,index=0,media=disk",
+    });
+    run_qemu.step.dependOn(&kernel_build.step);
+    run_qemu.step.dependOn(&create_disk.step);
+
+    const start_step = b.step("start", "Build and run in QEMU");
+    start_step.dependOn(&run_qemu.step);
 }
