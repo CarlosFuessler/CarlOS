@@ -29,9 +29,10 @@ pub fn build(b: *std.Build) void {
     ;
 
     // Main build step - runs inside container
+    const mount_arg = std.fmt.allocPrint(b.allocator, "{s}:/root/env", .{b.build_root.path.?}) catch unreachable;
     const kernel_build = b.addSystemCommand(&.{
         "podman", "run", "--rm",
-        "-v", "/Users/carlos/Developer/Projects/CarlOS:/root/env",
+        "-v", mount_arg,
         "carl_os_zig",
         "/bin/bash", "-c", build_cmd,
     });
