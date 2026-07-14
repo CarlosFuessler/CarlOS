@@ -57,4 +57,20 @@ pub fn build(b: *std.Build) void {
 
     const start_step = b.step("start", "Build and run in QEMU");
     start_step.dependOn(&run_qemu.step);
+
+    // Clean build artifacts
+    const clean_build = b.addSystemCommand(&.{
+        "rm", "-rf", "build", "dist",
+    });
+
+    // Clean Podman containers and images
+    const clean_podman = b.addSystemCommand(&.{
+        "/bin/bash", "-c",
+        \\podman rm -f carl-os-build 2>/dev/null || true; \
+        \\podman rmi carl_os_zig 2>/dev/null || true
+    });
+
+    const clean_step = b.step("clean", "Remove build artifacts and Podman resources");
+    clean_step.dependOn(&clean_build.step);
+    clean_step.dependOn(&clean_podman.step);
 }
