@@ -20,7 +20,7 @@ static inline void insl(uint16_t port, void *addr, uint32_t count)
     __asm__ volatile("cld; rep insl" : "+D"(addr), "+c"(count) : "d"(port) : "memory");
 }
 
-// rrite multiple 32-bit values from memory to an I/O port
+// write multiple 32-bit values from memory to an I/O port
 static inline void outsl(uint16_t port, const void *addr, uint32_t count)
 {
     __asm__ volatile("cld; rep outsl" : "+S"(addr), "+c"(count) : "d"(port) : "memory");
@@ -32,7 +32,7 @@ static void disk_wait_busy(void)
         ;
 }
 
-// ait until disk is ready
+// Wait until disk is ready
 static void disk_wait_ready(void)
 {
     while (!(inb(ATA_PRIMARY_IO + 7) & ATA_SR_DRDY))
@@ -46,7 +46,7 @@ static void disk_wait_drq(void)
         ;
 }
 
-// nitialize the disk controller
+// Initialize the disk controller
 void disk_init(void)
 {
     disk_wait_busy();
@@ -67,7 +67,7 @@ int disk_read_sector(uint32_t lba, uint8_t *buffer)
     outb(ATA_PRIMARY_IO + 5, (uint8_t)(lba >> 16));
     outb(ATA_PRIMARY_IO + 7, ATA_CMD_READ_SECTORS);
 
-    // it for data and read 512 bytes into buffer
+    // Wait for data and read 512 bytes into buffer
     disk_wait_drq();
     insl(ATA_PRIMARY_IO, buffer, SECTOR_SIZE / 4);
 
@@ -80,8 +80,8 @@ int disk_read_sector(uint32_t lba, uint8_t *buffer)
     return 0;
 }
 
-// rite one sector (512 bytes) to disk at logical block address
-// eturns 0 on success, -1 on error
+// Write one sector (512 bytes) to disk at logical block address
+// Returns 0 on success, -1 on error
 int disk_write_sector(uint32_t lba, const uint8_t *buffer)
 {
     disk_wait_busy();
